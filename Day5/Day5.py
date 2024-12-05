@@ -25,7 +25,7 @@ for path in p:
 total = 0
 
 # p1
-"""for pa in ps:
+for pa in ps:
     valid = True
     for i in range(len(pa)):
         for j in range(i+1, len(pa)):
@@ -36,8 +36,10 @@ total = 0
                 valid = False
 
     if valid:
-        print(pa)
-        total += pa[int((len(pa) - 1) / 2)]"""
+        total += pa[int((len(pa) - 1) / 2)]
+
+print(total)
+total = 0
 
 # p2
 for pa in ps:
@@ -56,7 +58,6 @@ for pa in ps:
                     pa[i], pa[j] = pa[j], pa[i]
 
     if not valid:
-        print(pa)
         total += pa[int((len(pa) - 1) / 2)]
 
 print(total)
