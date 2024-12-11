@@ -5,7 +5,7 @@ import time
 
 
 
-with open('input.txt') as f:
+with open('xak_input.txt') as f:
     ns = [int(n) for n in f.readline().split()]
 
 start = time.time()
@@ -13,7 +13,7 @@ start = time.time()
 ns = dict([(k, 1) for k in ns]) # store dict of {value: count} to avoid millions length array
 print(len(list(ns.keys())))
 
-loops = 75
+loops = 7500
 memo = {} # dp
 for i in range(loops):
     ns_new = dict()
