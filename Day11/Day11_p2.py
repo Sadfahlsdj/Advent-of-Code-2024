@@ -11,7 +11,7 @@ with open('input.txt') as f:
 start = time.time()
 
 ns = dict([(k, 1) for k in ns]) # store dict of {value: count} to avoid millions length array
-print(ns)
+print(len(list(ns.keys())))
 
 loops = 75
 memo = {} # dp
@@ -60,7 +60,7 @@ for i in range(loops):
 
     ns = copy.deepcopy(ns_new)
 
-    print(f'iter: {i}, dict: {len(ns)}')
+    print(f'iter: {i}, unique vals: {len(list(ns.keys()))}')
 
 total = sum([l for l in ns.values()])
 print(total)
