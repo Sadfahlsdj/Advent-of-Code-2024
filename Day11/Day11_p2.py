@@ -1,4 +1,9 @@
 import copy
+import time
+
+# approx runtime w/ memo around 0.12s, w/o 0.165
+
+start = time.time()
 
 with open('input.txt') as f:
     ns = [int(n) for n in f.readline().split()]
@@ -57,3 +62,4 @@ for i in range(loops):
 
 total = sum([l for l in ns.values()])
 print(total)
+print(f'time: {time.time() - start}')
