@@ -3,28 +3,33 @@ from itertools import chain
 def get_neighbors(matrix, i, j, char):
     neighbors = []
     count = 0
+    dirs = []
 
     # UP
     if (i > 0 and matrix[i - 1][j] == char):
         neighbors.append((i - 1, j))
+        dirs.append((-1, 0))
         count += 1
 
     # LEFT
     if (j > 0 and matrix[i][j - 1] == char):
         neighbors.append((i, j - 1))
+        dirs.append((0, -1))
         count += 1
 
     # DOWN
     if (i < len(matrix) - 1 and matrix[i + 1][j] == char):
         neighbors.append((i + 1, j))
+        dirs.append((1, 0))
         count += 1
 
     # RIGHT
     if (j < len(matrix[0]) - 1 and matrix[i][j + 1] == char):
         neighbors.append((i, j + 1))
+        dirs.append((0, 1))
         count += 1
 
-    return (neighbors, count)
+    return (neighbors, count, dirs)
 
 
 with open('example.txt') as f:
@@ -33,7 +38,7 @@ with open('example.txt') as f:
 unique = list(set(chain(*lines))) # unique values
 groups = dict((k, []) for k in unique)
 visited = set()
-total = 0
+total_p1, total_p2 = 0, 0
 
 for i in range(len(lines)):
     for j in range(len(lines[0])):
@@ -47,6 +52,7 @@ for i in range(len(lines)):
         if not discovered:
             group, neighbors = {(i, j)}, {(i, j)}
             count = (4 - get_neighbors(lines, i, j, char)[1])
+            corners = 0
             visited_neighbors = set()
 
             while len(neighbors) > 0:
@@ -62,8 +68,9 @@ for i in range(len(lines)):
                         count += (c)
                         # print(f'char {lines[t[0]][t[1]]} with curr {curr} at position {t} has {c} perim')
 
-            total += len(group) * count
+            total_p1 += len(group) * count
+            total_p2 += len(group) * corners
             groups[char].append(sorted(group))
 
 print(groups)
-print(total)
+print(total_p1)
