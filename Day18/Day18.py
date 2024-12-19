@@ -27,13 +27,13 @@ for l in lines_first:
     g.remove_node(hash(l[0], l[1]))
 
 # p1
-dij = nx.dijkstra_path_length(g, hash(0, 0),
+sp = nx.shortest_path_length(g, hash(0, 0),
                               hash(grid_limit - 1, grid_limit - 1))
 
 for l in lines[1024:]:
     g.remove_node(hash(l[0], l[1]))
     try:
-        dij = nx.dijkstra_path_length(g, hash(0, 0),
+        sp = nx.shortest_path_length(g, hash(0, 0),
                                       hash(grid_limit - 1, grid_limit - 1))
         print(f'trying {l}')
     except:
