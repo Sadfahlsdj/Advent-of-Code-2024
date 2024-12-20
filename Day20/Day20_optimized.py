@@ -3,8 +3,6 @@ best guess is that this is for the most part due to python being python"""
 
 import networkx as nx # im on vacation, nx can do the pathfinding algo for me
 import time # for diagnostics
-def manh_dist(x, y):
-    return abs(x[0] - y[0]) + abs(x[1] - y[1])
 
 start_time = time.time()
 with open('input.txt') as f:
@@ -39,24 +37,24 @@ for o in obstacles:
 counts = {}
 raw_path = nx.shortest_path(g, start, end) # used for the actual algo
 
-print(f'initialization done, time: {time.time() - start_time}') # initial pathfinding & other
+print(f'initialization done, time: {time.time() - start_time}, path len: {len(raw_path)}') # initial pathfinding & other
 
+total = 0
 max_len = 20 # 2 for p1, 20 for p2
 for i in range(len(raw_path)):
     for j in range(i, len(raw_path)):
         first, second = raw_path[i], raw_path[j]
         raw_len = j - i
-        if 1 < manh_dist(first, second) <= max_len: # <= max_len apart means cheat can be used
-            gain = raw_len - manh_dist(first, second)
+        ma_dist = abs(first[0] - second[0]) + abs(first[1] - second[1])
+        if 1 < ma_dist <= max_len: # <= max_len apart means cheat can be used
+            if raw_len - ma_dist >= 100:
+                total += 1
 
-            if gain in counts:
+            # used a dict when checking for diagnostics
+            """if gain in counts.keys():
                 counts[gain] += 1
             else:
-                counts[gain] = 1
-
-total = 0
-for c in sorted([ch for ch in counts.keys() if ch >= 100]):
-    total += counts[c]
+                counts[gain] = 1"""
 
 print(total)
 print(f'program done, time: {time.time() - start_time}')
