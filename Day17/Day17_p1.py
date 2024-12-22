@@ -21,33 +21,48 @@ def extract_operand_value(operand):
 ind = 0
 outputs = []
 
+looping = False
+
 while ind < (len(ops) - 1):
     opcode, lit_operand = ops[ind], ops[ind + 1]
     combo_op = extract_operand_value(lit_operand)
 
-    print(f'opcode = {opcode}, lit = {lit_operand}, combo = {combo_op}')
     if opcode == 0:
         a = int(a / (2 ** combo_op))
+        if not looping:
+            print(f'setting a to a divided by 2 to the power of {combo_op}')
     elif opcode == 1:
         b = b ^ lit_operand
+        if not looping:
+            print(f'setting b to b xor {lit_operand}')
     elif opcode == 2:
         b = combo_op % 8
+        if not looping:
+            print(f'setting b to {combo_op} modulo 8')
     elif opcode == 3:
         if a == 0:
-            pass
+            print(f'skipping')
+            looping = False
         else:
             ind = lit_operand - 2 # to offset it increasing by 2 always
+            looping = True
+            print(f'changing index to {lit_operand}')
     elif opcode == 4:
         b = b ^ c
+        if not looping:
+            print('changing b to b xor c')
     elif opcode == 5:
         outputs.append(combo_op % 8)
+        print(f'outputting {combo_op} % 8, looping is {looping}')
     elif opcode == 6:
         b = int(a / (2 ** combo_op))
+        if not looping:
+            print(f'setting b to a divided by 2 to the power of {combo_op}')
     elif opcode == 7:
-        c = int(a / (2 ** combo_op))
+        if not looping:
+            print(f'setting c to a divided by 2 to the power of {combo_op}')
 
     ind += 2
-    print(ind)
 
 s = ''
 for o in outputs:
