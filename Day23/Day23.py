@@ -1,4 +1,5 @@
 import networkx as nx
+import time
 
 def sized_conn_comps(graph):
     ccs = set()
@@ -11,6 +12,7 @@ def sized_conn_comps(graph):
 
     return ccs
 
+start = time.time()
 with open('input.txt') as f:
     lines = [l.strip() for l in f.readlines()]
 
@@ -32,7 +34,7 @@ for a in conn:
                 total += 1
                 added = True
 
-print(total)
+print(f'p1: total - {total}, done in {time.time() - start}')
 
 # p2
 largest_cycle = max(nx.find_cliques(g), key=len)
@@ -41,4 +43,4 @@ str = ''
 for c in sorted(largest_cycle):
     str += f'{c},'
 
-print(str)
+print(f'p2: str - {str}, done in {time.time() - start}')
